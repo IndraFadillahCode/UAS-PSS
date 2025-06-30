@@ -1,6 +1,6 @@
 # 🏫 be_simple_lms
 
-**be_simple_lms** adalah platform Learning Management System (LMS) sederhana berbasis Django yang mendukung pembelajaran daring, manajemen kursus, dan interaksi antara pengajar dan siswa. Proyek ini cocok untuk kebutuhan e-learning skala kecil hingga menengah, serta sebagai referensi pengembangan LMS modern.
+**be_simple_lms** adalah platform Learning Management System (LMS) sederhana berbasis Django dibuat untuk UAS pss
 
 ---
 
