@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifikat Penyelesaian Kursus</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f6fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Wave Animation */
+        .wave-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .wave-bg svg {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+        .certificate {
+            width: 800px;
+            height: 600px;
+            border-radius: 32px;
+            border: 1px solid #e0e0e0;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            position: relative;
+            box-sizing: border-box;
+            z-index: 1;
+            padding-bottom: 56px;
+        }
+        .certificate h1 {
+            font-size: 2.8em;
+            color: #222;
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .certificate h2 {
+            font-size: 2em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .certificate p {
+            font-size: 1.15em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .certificate .recipient {
+            font-size: 2.2em;
+            color: #0071e3;
+            margin: 28px 0 10px 0;
+            font-weight: 600;
+        }
+        .certificate .username {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 18px;
+        }
+        .certificate .course-name {
+            font-size: 1.7em;
+            color: #34c759;
+            font-weight: 600;
+            margin-bottom: 36px;
+        }
+        .certificate .date {
+            font-size: 1.1em;
+            color: #888;
+            margin-top: 44px;
+        }
+        .signature-block {
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+        .signature-line {
+            width: 180px;
+            border-bottom: 1.5px solid #333;
+            margin: 0 auto 8px auto;
+        }
+        .signature-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .signature-role {
+            margin-top: 0;
+            font-size: 1em;
+            color: #888;
+            font-weight: 400;
+        }
+        .certificate-id {
+            position: absolute;
+            bottom: 18px;
+            left: 24px;
+            font-size: 0.95em;
+            color: #b0b0b0;
+        }
+        .completion-status {
+            font-size: 1.3em;
+            margin-top: 18px;
+            color: #ff375f;
+        }
+        .completion-status.completed {
+            color: #34c759;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wave SVG Background -->
+    <div class="wave-bg">
+        <svg viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="appleWave1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e0e7ff"/>
+                    <stop offset="100%" stop-color="#f5f6fa"/>
+                </linearGradient>
+                <linearGradient id="appleWave2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#d1eaff"/>
+                    <stop offset="100%" stop-color="#e0e7ff"/>
+                </linearGradient>
+            </defs>
+            <path d="M0,200 Q360,350 720,200 T1440,200 V900 H0 Z" fill="url(#appleWave1)">
+                <animate attributeName="d" dur="8s" repeatCount="indefinite"
+                    values="M0,200 Q360,350 720,200 T1440,200 V900 H0 Z;
+                            M0,220 Q360,180 720,260 T1440,220 V900 H0 Z;
+                            M0,200 Q360,350 720,200 T1440,200 V900 H0 Z"/>
+            </path>
+            <path d="M0,350 Q480,500 960,350 T1440,350 V900 H0 Z" fill="url(#appleWave2)" opacity="0.7">
+                <animate attributeName="d" dur="10s" repeatCount="indefinite"
+                    values="M0,350 Q480,500 960,350 T1440,350 V900 H0 Z;
+                            M0,370 Q480,320 960,400 T1440,370 V900 H0 Z;
+                            M0,350 Q480,500 960,350 T1440,350 V900 H0 Z"/>
+            </path>
+        </svg>
+    </div>
+    <div class="certificate">
+        <h1>Sertifikat Penyelesaian</h1>
+        <p>Dengan bangga diberikan kepada</p>
+        
+        <div class="recipient">{{ user.first_name }} {{ user.last_name }}</div>
+        <div class="username">(@{{ user.username }})</div>
+        
+        <p>Atas keberhasilan menyelesaikan kursus</p>
+        <div class="course-name">{{ course.name }}</div>
+
+        {% if is_course_completed %}
+            <p class="completion-status completed">Kursus ini telah berhasil diselesaikan!</p>
+            <p>Total konten: {{ total_contents }}</p>
+            <p>Konten yang diselesaikan: {{ completed_contents }}</p>
+        {% else %}
+            <p class="completion-status">Kursus ini belum sepenuhnya selesai. Anda telah menyelesaikan {{ completed_contents }} dari {{ total_contents }} konten.</p>
+        {% endif %}
+
+        <div class="date">Tanggal Penyelesaian: {{ completion_date|date:"d F Y" }}</div>
+        <div class="signature-block">
+            <div class="signature-line"></div>
+        </div>
+        <div class="certificate-id">ID Sertifikat: {{ certificate_id }}</div>
+    </div>
+</body>
+</html>
